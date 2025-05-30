@@ -5,6 +5,7 @@ from PyPDF2 import PdfWriter
 from pptx import Presentation
 from pptx.util import Inches
 from src.presentation_processor import PresentationProcessor
+from src.content_analyzer import ContentAnalyzer, SlideContent
 
 @pytest.fixture
 def processor():
@@ -67,3 +68,30 @@ def sample_pptx(temp_dir):
     
     prs.save(pptx_path)
     return pptx_path
+
+@pytest.fixture
+def content_analyzer():
+    return ContentAnalyzer()
+
+@pytest.fixture
+def sample_slides():
+    return [
+        SlideContent(
+            slide_number=1,
+            text="Title Slide\n• First point\n• Second point",
+            images=[],
+            metadata={"type": "title"}
+        ),
+        SlideContent(
+            slide_number=2,
+            text="Content Slide\n• Main point 1\n• Main point 2\n• Main point 3",
+            images=[],
+            metadata={"type": "content"}
+        ),
+        SlideContent(
+            slide_number=3,
+            text="Image Slide with some text",
+            images=["image1.jpg"],
+            metadata={"type": "image"}
+        )
+    ]
