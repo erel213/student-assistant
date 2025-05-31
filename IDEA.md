@@ -3,6 +3,7 @@
 ## Overview
 This project aims to create a CLI tool that automates the process of extracting information from school presentations, analyzing them using LLMs, and creating structured summaries in Notion.
 
+
 ## Core Components
 
 ### 1. CLI Interface
