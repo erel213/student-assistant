@@ -1,4 +1,5 @@
 import argparse
+import asyncio
 import os
 from typing import Dict, Type
 from src.presentation_processor import PresentationProcessor
@@ -17,7 +18,7 @@ def load_api_key() -> str:
 
 def main():
     parser = argparse.ArgumentParser(description='Notion Summary Automation CLI')
-    parser.add_argument('--export_path', type=str, required=True,
+    parser.add_argument('--export_path', type=str, required=False,
                       help='Output file path')
     parser.add_argument('--source_path', type=str, required=True,
                       help='Source file path')
@@ -27,7 +28,7 @@ def main():
     args = parser.parse_args()
 
     # Initialize LLM
-    llm = init_chat_model("gpt-4o-mini", model_provider="openai", temperature=0.5)
+    llm = init_chat_model("gpt-4.1-mini", model_provider="openai", temperature=0.5)
     content_analyzer = ContentAnalyzer()
     presentation_processor = PresentationProcessor()
 
@@ -47,7 +48,7 @@ def main():
     )
     
     # Export the summary
-    exporter.export(summary)
+    asyncio.run(exporter.export(summary))
     print(f"Summary successfully exported to {args.export_path}")
 
 
