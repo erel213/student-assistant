@@ -3,10 +3,10 @@ from typing import List, Dict, Any, Optional
 from langchain_core.runnables import Runnable, RunnableSequence
 from langchain_core.messages import HumanMessage, SystemMessage
 from pydantic import BaseModel
-from langchain.prompts import ChatPromptTemplate, PromptTemplate
-from langchain.output_parsers import PydanticOutputParser
+from langchain_core.prompts import ChatPromptTemplate, PromptTemplate
+from langchain_core.output_parsers import PydanticOutputParser
 from langchain.chat_models import init_chat_model
-from langchain.chat_models.base import BaseChatModel
+from langchain_core.language_models.chat_models import BaseChatModel
 import getpass
 import os
 

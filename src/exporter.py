@@ -1,8 +1,8 @@
 from abc import ABC, abstractmethod
 import os
 from src.llm_processor import Summary
-from langchain.prompts import PromptTemplate
-from langchain.chat_models.base import BaseChatModel
+from langchain_core.prompts import PromptTemplate
+from langchain_core.language_models.chat_models import BaseChatModel
 from langchain_core.messages import HumanMessage, SystemMessage, AIMessage, AnyMessage
 from enum import Enum
 from typing import Annotated, Dict, Literal, Type, TypedDict, List, Any
