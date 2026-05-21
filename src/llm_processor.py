@@ -24,7 +24,6 @@ class TopicSummary(BaseModel):
     detailed_explanation: Optional[str]
     summary: str
     key_insights: List[str]
-    questions: List[str]
 
 class Summary(BaseModel):
     topics: List[TopicSummary]
@@ -76,21 +75,24 @@ class LLMProcessor:
         """
         Extract the summary from the concepts using the LLM.
         """
-        system_message = """You are an expert educational content summarizer for university students.
-            Your task is to analyze educational content and extract key concepts and ideas.
+        system_message = """You are an expert university lecturer writing comprehensive study notes for students.
+            Your goal is to deeply teach each concept — not just summarize it. Write as if you are explaining the material
+            to a student who is encountering it for the first time and needs to truly understand it, not just memorize it.
+
+            For each concept, use whatever teaching approach best serves understanding: build intuition before formalism,
+            show worked examples, highlight common misconceptions, connect to related ideas, or explain the "why" behind
+            the concept. Be thorough — a student should be able to learn the concept solely from your output.
 
             Guidelines:
-            1. For each concept, provide a detailed explanation of the concept, including examples and applications.
-            2. For each concept, provide a summary of the concept.
-            3. For each concept, if it uses mathematical expressions, provide a list of examples that illustrate the concept.
-            4. For each concept, provide a list of key insights that are important to remember.
-            5. For each concept, provide a list of questions that are important to ask yourself when learning the concept.
-            6. For each concept, if it expose new terms, provide a list of key terms that are important to remember.
-            7. Format all mathematical expressions using LaTeX notation:
+            1. detailed_explanation: Provide a thorough, in-depth explanation. Use the teaching style and structure
+               that best conveys the concept — there is no prescribed format. Depth and clarity are the priority.
+            2. summary: A concise recap of the essential idea a student must take away.
+            3. examples: Worked examples where relevant (especially for math, algorithms, or processes).
+            4. key_terms: Any new vocabulary or notation introduced, with brief definitions.
+            5. key_insights: The most important non-obvious takeaways a student might miss.
+            6. Format all mathematical expressions using LaTeX notation:
                - Use $...$ for inline math
                - Use $$...$$ for display math
-            
-            Your output should be structured and well-organized, making it easy to understand the relationships between concepts.
 
             Here are the concepts to summarize:
             {concepts}
